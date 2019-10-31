@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC  
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+   
+<mapper namespace="com.hou.springboot.api.brand.hou.api.brand.mapper.IBrandMapper">
+    <!--总条数-->
+    <select id="findBrandCount" parameterType="com.hou.springboot.api.brand.hou.api.param.BrandParam" resultType="long">
+        select count(*)from t_brand
+        <where>
+           <if test="brandName!=null and brandName!=''">
+               brandName=#{brandName}
+           </if>
+        </where>
+    </select>
+    <!--集合-->
+    <select id="findPageList" parameterType="com.hou.springboot.api.brand.hou.api.param.BrandParam" resultType="com.hou.springboot.api.brand.hou.api.brand.po.Brand">
+        select t.* from (
+        select id,brandName,status,vieworder from t_brand
+        <where>
+            <if test="brandName!=null and brandName!=''">
+                brandName=#{brandName}
+            </if>
+        </where> order by vieworder desc
+        )t limit #{start},#{length}
+    </select>
+</mapper>
