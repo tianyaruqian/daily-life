@@ -7,11 +7,15 @@ import java.awt.event.WindowEvent;
 /**
  * @author 天涯如浅
  */
-public class Tank {
+public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         TankFrame tankFrame = new TankFrame();
+        while (true) {
+            Thread.sleep(50);
+            tankFrame.repaint();
+        }
 
     }
 }
