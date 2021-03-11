@@ -10,8 +10,12 @@ import java.awt.event.WindowEvent;
  * @author 天涯如浅
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,200,Dir.LIFT);
+    Tank myTank = new Tank(200,200,Dir.LIFT,this);
     Bullet b = new Bullet(250,250,Dir.RIGHT);
+
+    private static final int GAME_WIDTH = 800;
+    private static final int GAME_HEIGHT = 600;
+
     public TankFrame(){
         setSize(800,600);
         setResizable(false);
@@ -25,6 +29,22 @@ public class TankFrame extends Frame {
                System.exit(0);
             }
         });
+
+    }
+    Image offScreenImage = null;
+
+    @Override
+    public void update(Graphics g) {
+        if(offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+        }
+        Graphics goffScreen = offScreenImage.getGraphics();
+        Color color = goffScreen.getColor();
+        goffScreen.setColor(Color.BLACK);
+        goffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        goffScreen.setColor(color);
+        paint(goffScreen);
+        g.drawImage(offScreenImage,0,0,null);
 
     }
 
@@ -78,6 +98,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN :
                     bD = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;
