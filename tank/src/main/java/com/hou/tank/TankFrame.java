@@ -10,10 +10,7 @@ import java.awt.event.WindowEvent;
  * @author 天涯如浅
  */
 public class TankFrame extends Frame {
-
-    int x = 200;int y  = 200;
-    Dir dir = Dir.LIFT;
-    private static final int SPEED = 3;
+    Tank myTank = new Tank();
 
     public TankFrame(){
         setSize(800,600);
@@ -33,23 +30,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-
-        g.fillRect(x,y,50,50);
-
-        switch (dir){
-            case LIFT:
-                x-= SPEED;
-                break;
-            case RIGHT:
-                x+= SPEED;
-                break;
-            case UP:
-                y-= SPEED;
-                break;
-            case DOWN:
-                y+= SPEED;
-                break;
-        }
+            myTank.paint(g);
 
     }
 
@@ -100,21 +81,21 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDire();
+           setMainTankDire();
         }
 
-        public void setMainTankDire() {
-            if(bL) {
-                dir =  Dir.LIFT;
+            public void setMainTankDire() {
+        if(bL) {
+            myTank.setDir(Dir.LIFT);
             }
             if(bR) {
-                dir =  Dir.RIGHT;
+                myTank.setDir(Dir.RIGHT);
             }
             if(bU) {
-                dir =  Dir.UP;
+                myTank.setDir(Dir.UP);
             }
             if(bD) {
-                dir =  Dir.DOWN;
+                myTank.setDir(Dir.DOWN);
             }
         }
     }
